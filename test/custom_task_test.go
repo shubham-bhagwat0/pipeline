@@ -464,7 +464,7 @@ func TestWaitCustomTask_Run(t *testing.T) {
 	}, {
 		name:                "Wait Task Timed Out",
 		duration:            "2s",
-		timeout:             2s,
+		timeout:             &metav1.Duration{Duration: time.Second},
 		conditionAccessorFn: Failed,
 		wantCondition: apis.Condition{
 			Type:   apis.ConditionSucceeded,
@@ -474,7 +474,7 @@ func TestWaitCustomTask_Run(t *testing.T) {
 	}, {
 		name:                "Wait Task Retries on Timed Out",
 		duration:            "2s",
-		timeout:             2s,
+		timeout:             &metav1.Duration{Duration: time.Second},
 		retries:             2,
 		conditionAccessorFn: Failed,
 		wantCondition: apis.Condition{
