@@ -296,7 +296,7 @@ metadata:
 spec:
   pipelineRef:
     name: %s
-  timeout: 5s
+  timeout: 10s
 `, helpers.ObjectNameForTest(t), namespace, pipeline.Name))
 	if _, err := c.V1beta1PipelineClient.Create(ctx, pipeline, metav1.CreateOptions{}); err != nil {
 		t.Fatalf("Failed to create Pipeline `%s`: %s", pipeline.Name, err)
@@ -464,7 +464,7 @@ func TestWaitCustomTask_Run(t *testing.T) {
 	}, {
 		name:                "Wait Task Timed Out",
 		duration:            "2s",
-		timeout:             &metav1.Duration{Duration: time.Second},
+		timeout:             2s,
 		conditionAccessorFn: Failed,
 		wantCondition: apis.Condition{
 			Type:   apis.ConditionSucceeded,
@@ -474,7 +474,7 @@ func TestWaitCustomTask_Run(t *testing.T) {
 	}, {
 		name:                "Wait Task Retries on Timed Out",
 		duration:            "2s",
-		timeout:             &metav1.Duration{Duration: time.Second},
+		timeout:             2s,
 		retries:             2,
 		conditionAccessorFn: Failed,
 		wantCondition: apis.Condition{
