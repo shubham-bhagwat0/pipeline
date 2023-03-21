@@ -29,6 +29,8 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"fmt"
+    	"time"
 
 	"github.com/tektoncd/pipeline/pkg/apis/config"
 	"github.com/tektoncd/pipeline/pkg/names"
@@ -95,6 +97,7 @@ func tearDown(ctx context.Context, t *testing.T, cs *clients, namespace string) 
 	}
 	if t.Failed() {
 		header(t, fmt.Sprintf("Dumping objects from %s", namespace))
+		time.Sleep(500 * time.Second)
 		bs, err := getCRDYaml(ctx, cs, namespace)
 		if err != nil {
 			t.Error(err)
