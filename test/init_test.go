@@ -24,7 +24,6 @@ package test
 import (
 	"context"
 	"flag"
-	"fmt"
 	"os"
 	"strings"
 	"sync"
